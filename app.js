@@ -6,14 +6,6 @@ const mongoose = require('mongoose');
 const userRouter = require('./routes/userRoutes');
 const blogRouter = require('./routes/blogRoutes');
 const commentRouter = require('./routes/commentRoutes');
-
-const port = process.env.PORT || 8000;
-
-const connectDB = (url) => {
-    mongoose.connect(url);
-    console.log(`connected successfully🟩`)
-}
-
 app.use((req, res, next) => {
     res.header('Access-Control-Allow-Origin', '*');
     res.header('Access-Control-Allow-Headers',
@@ -27,6 +19,14 @@ app.use((req, res, next) => {
     }
     next();
 }); 
+
+const port = process.env.PORT || 8000;
+
+const connectDB = (url) => {
+    mongoose.connect(url);
+    console.log(`connected successfully🟩`)
+}
+
 
 app.use(express.json());
 app.use('/user', userRouter);
