@@ -5,7 +5,8 @@
   "main": "app.js",
   "scripts": {
     "start": "nodemon app.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "webpack --config webpack.config.js"
   },
   "author": "",
   "license": "ISC",
@@ -16,5 +17,15 @@
     "http-status-codes": "^2.2.0",
     "mongoose": "^7.0.3",
     "nodemon": "^2.0.22"
-  }
+  },
+  "devDependencies": {},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/UtkarshM-hub/Techno_Backend.git"
+  },
+  "keywords": [],
+  "bugs": {
+    "url": "https://github.com/UtkarshM-hub/Techno_Backend/issues"
+  },
+  "homepage": "https://github.com/UtkarshM-hub/Techno_Backend#readme"
 }
