@@ -6,26 +6,6 @@ const mongoose = require('mongoose');
 const userRouter = require('./routes/userRoutes');
 const blogRouter = require('./routes/blogRoutes');
 const commentRouter = require('./routes/commentRoutes');
-// Add headers before the routes are defined
-app.use(function (req, res, next) {
-
-    // Website you wish to allow to connect
-    res.setHeader('Access-Control-Allow-Origin', 'http://localhost:8888');
-
-    // Request methods you wish to allow
-    res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
-
-    // Request headers you wish to allow
-    res.setHeader('Access-Control-Allow-Headers', 'X-Requested-With,content-type');
-
-    // Set to true if you need the website to include cookies in the requests sent
-    // to the API (e.g. in case you use sessions)
-    res.setHeader('Access-Control-Allow-Credentials', true);
-
-    // Pass to next layer of middleware
-    next();
-});
-
 const port = process.env.PORT || 8000;
 
 const connectDB = (url) => {
@@ -33,6 +13,20 @@ const connectDB = (url) => {
     console.log(`connected successfully🟩`)
 }
 
+// Add headers before the routes are defined
+app.use((req, res, next) => {
+    res.header('Access-Control-Allow-Origin', '*');
+    res.header('Access-Control-Allow-Headers',
+    'Origin, X-Requeted-With, Content-Type, Accept, Authorization, RBR',);
+    if (req.headers.origin) {
+        res.header('Access-Control-Allow-Origin', req.headers.origin);
+      }
+      if (req.method === 'OPTIONS') {
+          res.header('Access-Control-Allow-Methods', 'GET, POST, PUT, PATCH, DELETE');
+          return res.status(200).json({});
+        }
+next();
+}); 
 
 app.use(express.json());
 app.use('/user', userRouter);
