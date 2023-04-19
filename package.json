@@ -16,9 +16,9 @@
     "express": "^4.18.2",
     "http-status-codes": "^2.2.0",
     "mongoose": "^7.0.3",
+    "multer": "^1.4.5-lts.1",
     "nodemon": "^2.0.22"
   },
-  "devDependencies": {},
   "repository": {
     "type": "git",
     "url": "git+https://github.com/UtkarshM-hub/Techno_Backend.git"

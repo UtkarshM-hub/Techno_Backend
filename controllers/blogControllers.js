@@ -1,12 +1,24 @@
 const Blog = require('../Models/Blog');
 const { StatusCodes } = require('http-status-codes');
+const multer = require('multer');
+
+const storage = multer.diskStorage({
+    destination: function (req, file, cb) {
+        return cb(null, './uploads/');
+    },
+    filename: function (req, file, cb) {
+        return cb(null, `${Date.now()}_${file.originalname}`);
+    }
+});
+
+const upload = multer({ storage }).single('file');
 
 const createBlog = async (req, res) => {
     // res.send('Blog Created!');
     try {
-        const { title, author, description, content,image } = req.body;
+        const { title, author, description, content, image } = req.body;
         const date = new Date().getDate();
-        const blog = await Blog.create({ title, author, description, content, date,image });
+        const blog = await Blog.create({ title, author, description, content, date, image });
         res.status(StatusCodes.CREATED).json({ blog });
     } catch (err) {
         console.log(err)
@@ -61,10 +73,10 @@ const getBlog = async (req, res) => {
     // res.send('Single Blog');
 }
 
-const AddComment=async(req,res)=>{
+const AddComment = async (req, res) => {
     try {
-        const {_id,name,date,text} = req.body;
-        const comment = await Blog.updateOne({"_id":_id},{$push:{"comments":{name:name,date:date,text:text}}});
+        const { _id, name, date, text } = req.body;
+        const comment = await Blog.updateOne({ "_id": _id }, { $push: { "comments": { name: name, date: date, text: text } } });
         res.status(StatusCodes.OK).json({ comment });
         // const blog = await Blog.findOne({)
     } catch (err) {
@@ -73,4 +85,4 @@ const AddComment=async(req,res)=>{
     }
 }
 
-module.exports = { createBlog, updateBlog, deleteBlog, getAllBlog, getBlog,AddComment };
+module.exports = { createBlog, updateBlog, deleteBlog, getAllBlog, getBlog, AddComment, upload };
