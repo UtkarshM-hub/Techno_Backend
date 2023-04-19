@@ -16,7 +16,8 @@ const upload = multer({ storage }).single('file');
 const createBlog = async (req, res) => {
     // res.send('Blog Created!');
     try {
-        const { title, author, description, content, image } = req.body;
+        const { title, author, description, content } = req.body;
+        const image=req.file.filename;
         const date = new Date().getDate();
         const blog = await Blog.create({ title, author, description, content, date, image });
         res.status(StatusCodes.CREATED).json({ blog });
